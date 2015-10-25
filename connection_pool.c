@@ -42,9 +42,11 @@ void redisFreeConnectionPool(redisConnectionPool *pool){
 redisContext *redisGetConnectionFromConnectionPool(redisConnectionPool *pool){
     if(pool != NULL && pool->connections != NULL && pool->usedConnections > 0){
         redisContext *c;
+        pthread_mutex_lock(&pool->lock);
         c = pool->connections[pool->usedConnections - 1];
         pool->connections[pool->usedConnections - 1] = NULL;
         pool->usedConnections--;
+        pthread_mutex_unlock(&pool->lock);
         return c;
     }
     else {
@@ -55,8 +57,10 @@ redisContext *redisGetConnectionFromConnectionPool(redisConnectionPool *pool){
 void redisPutConnectionInConnectionPool(redisContext *c, redisConnectionPool *pool){
     if(c != NULL && pool != NULL && !c->err && pool->connections != NULL
             && pool->usedConnections < pool->allowedConnections){
+        pthread_mutex_lock(&pool->lock);
         pool->connections[pool->usedConnections] = c;
         pool->usedConnections++;
+        pthread_mutex_unlock(&pool->lock);
     }
 }
 
