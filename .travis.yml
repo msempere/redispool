@@ -13,6 +13,11 @@ install:
       make;
       sudo make install;
       cd ..;
+      git clone https://github.com/msempere/redispool.git;
+      cd redispool;
+      make;
+      sudo make install;
+      cd ..;
     fi
 env:
     - CFLAGS="-Werror"
