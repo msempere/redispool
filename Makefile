@@ -62,6 +62,10 @@ redispool-example: examples/basic_example.c $(STLIBNAME)
 
 examples: $(EXAMPLES)
 
+hiredis:
+	git clone https://github.com/redis/hiredis.git
+	cd hiredis && make && sudo make install
+
 redispool-%: %.o $(STLIBNAME)
 	$(CC) $(REAL_CFLAGS) -o $@ $(REAL_LDFLAGS) $< $(STLIBNAME)
 
