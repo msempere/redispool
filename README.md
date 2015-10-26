@@ -2,7 +2,7 @@
 # RedisPool ![alt build](https://travis-ci.org/msempere/redispool.svg?branch=master)
 Connection pool for Redis
 
-## Dependencies
+### Dependencies
 RedisPool requires hiredis only
 
 ### Install
