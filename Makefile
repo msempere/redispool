@@ -1,7 +1,6 @@
 OBJ=redispool.o
 LIBNAME=libredispool
 EXAMPLES=redispool-example
-LDFLAGS += -lhiredis
 
 REDISPOOL_MAJOR=$(shell grep REDISPOOL_MAJOR redispool.h | awk '{print $$3}')
 REDISPOOL_MINOR=$(shell grep REDISPOOL_MINOR redispool.h | awk '{print $$3}')
@@ -59,7 +58,7 @@ dynamic: $(DYLIBNAME)
 static: $(STLIBNAME)
 
 redispool-example: examples/basic_example.c $(STLIBNAME)
-	$(CC) -o examples/$@ $(REAL_CFLAGS) $(REAL_LDFLAGS) -I. $< $(STLIBNAME)
+	$(CC) -o examples/$@ $(REAL_CFLAGS) $(REAL_LDFLAGS) -I. $< $(STLIBNAME) -lhiredis
 
 examples: $(EXAMPLES)
 
