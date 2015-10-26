@@ -17,6 +17,11 @@ git clone https://github.com/redis/hiredis.git
 cd hiredis & make & make install
 ```
 
+Or using makefile from RedisPool:
+```
+make hiredis
+```
+
 Installing RedisPool:
 ```
 git clone https://github.com/msempere/redispool.git
