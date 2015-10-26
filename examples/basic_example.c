@@ -1,7 +1,7 @@
-#include "connection_pool.h"
+#include <redispool/redispool.h>
 #include <hiredis/hiredis.h>
 
-int main(){
+int main(void){
     redisConnectionPool *pool;
     pool = redisCreateConnectionPool(5);
     printf("Connections: %d\n", redisConnectionsInConnectionPool(pool));
@@ -34,4 +34,5 @@ int main(){
         freeReplyObject(reply);
     }
     redisFreeConnectionPool(pool);
+    return 0;
 }
