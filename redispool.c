@@ -1,4 +1,4 @@
-#include "connection_pool.h"
+#include "redispool.h"
 #include <stdlib.h>
 
 static redisConnectionPool *redisConnectionPoolInit(int size){

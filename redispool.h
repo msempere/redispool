@@ -4,6 +4,10 @@
 #include <hiredis/hiredis.h>
 #include <pthread.h>
 
+#define REDISPOOL_MAJOR 0
+#define REDISPOOL_MINOR 1
+#define REDISPOOL_SONAME 0.1
+
 typedef struct redisConnectionPool {
     redisContext **connections;
     int allowedConnections;
