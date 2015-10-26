@@ -1,5 +1,5 @@
 ![alt logo](http://i.imgur.com/0yz70i0.png?1)
-# RedisPool
+# RedisPool ![alt build](https://travis-ci.org/msempere/redispool.svg?branch=master)
 Connection pool for Redis
 
 ### Make & install
