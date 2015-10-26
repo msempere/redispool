@@ -8,11 +8,7 @@ compiler:
   - gcc
 install:
   - if [ $TRAVIS_OS_NAME = linux ]; then
-      git clone https://github.com/redis/hiredis.git;
-      cd hiredis;
-      make;
-      sudo make install;
-      cd ..;
+      sudo apt-get install libhiredis-dev
       git clone https://github.com/msempere/redispool.git;
       cd redispool;
       make;
