@@ -1,0 +1,19 @@
+language: c
+sudo: required
+branches:
+  only:
+    - master
+compiler:
+  - clang
+  - gcc
+install:
+  - if [ $TRAVIS_OS_NAME = linux ]; then
+      git clone https://github.com/redis/hiredis.git;
+      cd hiredis;
+      make;
+      sudo make install;
+      cd ..;
+    fi
+env:
+    - CFLAGS="-Werror"
+script: make $TARGET CFLAGS="$CFLAGS" && make $TARGET_VARS redispool-example
