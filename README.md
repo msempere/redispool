@@ -6,3 +6,6 @@ Connection pool for Redis
 ```
 make & make install
 ```
+
+### License
+Distributed under MIT license. See `LICENSE` for more information.
