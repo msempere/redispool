@@ -2,9 +2,25 @@
 # RedisPool ![alt build](https://travis-ci.org/msempere/redispool.svg?branch=master)
 Connection pool for Redis
 
-### Make & install
+## Dependencies
+RedisPool requires hiredis only
+
+### Install
+Installing hiredis, on a Debian system:
 ```
-make & make install
+sudo apt-get install libhiredis-dev
+```
+
+Or manually:
+```
+git clone https://github.com/redis/hiredis.git
+cd hiredis & make & make install
+```
+
+Installing RedisPool:
+```
+git clone https://github.com/msempere/redispool.git
+cd redispool & make & make install
 ```
 
 ### License
