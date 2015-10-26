@@ -1,18 +1,18 @@
 language: c
-sudo: required
+sudo: false
 branches:
   only:
     - master
 compiler:
   - clang
   - gcc
+  
+addons:
+  apt:
+    packages:
+    - libhiredis-dev
 install:
   - if [ $TRAVIS_OS_NAME = linux ]; then
-      git clone https://github.com/redis/hiredis.git;
-      cd hiredis;
-      make;
-      sudo make install;
-      cd ..;
       git clone https://github.com/msempere/redispool.git;
       cd redispool;
       make;
