@@ -1,14 +1,18 @@
 language: c
-sudo: required
+sudo: false
 branches:
   only:
     - master
 compiler:
   - clang
   - gcc
+  
+addons:
+  apt:
+    packages:
+    - libhiredis-dev
 install:
   - if [ $TRAVIS_OS_NAME = linux ]; then
-      sudo apt-get install libhiredis-dev;
       git clone https://github.com/msempere/redispool.git;
       cd redispool;
       make;
