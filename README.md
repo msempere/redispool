@@ -1,5 +1,5 @@
 ![alt logo](http://i.imgur.com/0yz70i0.png?1)
-# RedisPool ![alt build](https://travis-ci.org/msempere/redispool.svg?branch=master)
+# RedisPool [![alt build](https://travis-ci.org/msempere/redispool.svg?branch=master)](https://travis-ci.org/msempere/redispool)
 Connection pool for Redis
 
 ### Dependencies
