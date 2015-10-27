@@ -2,13 +2,15 @@
 #include <hiredis/hiredis.h>
 
 int main(void){
-    redisConnectionPool *pool;
-    pool = redisCreateConnectionPool(5);
-    printf("Connections: %d\n", redisConnectionsInConnectionPool(pool));
 
     const char *hostname = "127.0.0.1";
     int port = 6379;
     struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+
+    redisConnectionPool *pool;
+    pool = redisCreateConnectionPool(5, hostname, port, timeout);
+    printf("Connections: %d\n", redisConnectionsInConnectionPool(pool));
+
     redisContext *connection;
 
     connection = redisConnectWithTimeout(hostname, port, timeout);
