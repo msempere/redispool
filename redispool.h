@@ -13,11 +13,14 @@ typedef struct redisConnectionPool {
     int allowedConnections;
     int usedConnections;
     pthread_mutex_t lock;
+    const char *hostname;
+    int port;
+    struct timeval timeout;
 } redisConnectionPool;
 
 void redisFreeConnectionPool(redisConnectionPool *pool);
 
-redisConnectionPool *redisCreateConnectionPool(int size);
+redisConnectionPool *redisCreateConnectionPool(int size, const char *hostname, int port, struct timeval timeout);
 
 void redisPutConnectionInConnectionPool(redisContext *c, redisConnectionPool *pool);
 

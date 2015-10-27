@@ -1,13 +1,20 @@
 #include "redispool.h"
 #include <stdlib.h>
 
-static redisConnectionPool *redisConnectionPoolInit(int size){
+static redisConnectionPool *redisConnectionPoolInit(
+        int size,
+        const char *hostname,
+        int port,
+        struct timeval timeout){
     redisConnectionPool *c;
     c = calloc(1, sizeof(redisConnectionPool));
 
     if (c == NULL)
         return NULL;
 
+    c->hostname = hostname;
+    c->port = port;
+    c->timeout = timeout;
     c->connections = malloc(sizeof(redisContext*) * size);
 
     if (c->connections == NULL)
@@ -19,8 +26,12 @@ static redisConnectionPool *redisConnectionPoolInit(int size){
     return c;
 }
 
-redisConnectionPool *redisCreateConnectionPool(int size){
-    return redisConnectionPoolInit(size);
+redisConnectionPool *redisCreateConnectionPool(
+        int size,
+        const char *hostname,
+        int port,
+        struct timeval timeout){
+    return redisConnectionPoolInit(size, hostname, port, timeout);
 }
 
 void redisFreeConnectionPool(redisConnectionPool *pool){
@@ -40,14 +51,19 @@ void redisFreeConnectionPool(redisConnectionPool *pool){
 }
 
 redisContext *redisGetConnectionFromConnectionPool(redisConnectionPool *pool){
-    if(pool != NULL && pool->connections != NULL && pool->usedConnections > 0){
-        redisContext *c;
-        pthread_mutex_lock(&pool->lock);
-        c = pool->connections[pool->usedConnections - 1];
-        pool->connections[pool->usedConnections - 1] = NULL;
-        pool->usedConnections--;
-        pthread_mutex_unlock(&pool->lock);
-        return c;
+    if(pool != NULL && pool->connections != NULL ){
+        if(pool->usedConnections > 0){
+            redisContext *c;
+            pthread_mutex_lock(&pool->lock);
+            c = pool->connections[pool->usedConnections - 1];
+            pool->connections[pool->usedConnections - 1] = NULL;
+            pool->usedConnections--;
+            pthread_mutex_unlock(&pool->lock);
+            return c;
+        }
+        else{
+            return redisConnectWithTimeout(pool->hostname, pool->port, pool->timeout);
+        }
     }
     else {
         return NULL;
